@@ -1,0 +1,32 @@
+<?php
+include "autoload.php";
+$akcija = $_GET['akcija'];
+
+if($akcija == 'svi_treninzi'){
+    include 'delovi/svi_treninzi.php';
+}
+
+if($akcija == 'login'){
+    $username = strip_tags($_POST['username']);
+    $password = strip_tags($_POST['password']);
+    $user = $baza->login($username,$password);
+    if($user){
+        $_SESSION['user'] = $user;
+        header("Location: index.php");
+    }else{
+        header("Location: login.php?greska=Doslo je do greske prilikom logovanja");
+    }
+}
+
+if($akcija == 'registracija'){
+    $ime = strip_tags($_POST['ime']);
+    $prezime = strip_tags($_POST['prezime']);
+    $username = strip_tags($_POST['username']);
+    $password = strip_tags($_POST['password']);
+    $uspesno = $baza->registracija($ime,$prezime,$username,$password);
+    if($uspesno){
+        header("Location: register.php?greska=Uspesno ste se registrovali. Mozete se ulogovati sa vasom sifrom i korisnickim imenom.");
+    }else{
+        header("Location: register.php?greska=Doslo je do greske prilikom registracije.Obratite se administratorima.");
+    }
+}
