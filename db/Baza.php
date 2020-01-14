@@ -53,4 +53,15 @@ class Baza
         $sql = "INSERT INTO user(first_name,last_name,username,password) VALUES ('".$i."','".$pr."','".$u."','".$p."')";
         return $this->konekcija->query($sql);
     }
+
+    public function unesiVreme($wodID, $userID, $minuti, $sekunde)
+    {
+        $wodID = $this->konekcija->real_escape_string($wodID);
+        $userID = $this->konekcija->real_escape_string($userID);
+        $minuti = $this->konekcija->real_escape_string($minuti);
+        $sekunde= $this->konekcija->real_escape_string($sekunde);
+
+        $sql = "INSERT INTO user_times VALUES (null,{$userID},{$wodID},{$minuti},{$sekunde})";
+        return $this->konekcija->query($sql);
+    }
 }

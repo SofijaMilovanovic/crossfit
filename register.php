@@ -131,25 +131,5 @@ include "autoload.php";
   <script src="js/aos.js"></script>
 
   <script src="js/main.js"></script>
-  
-  <script>
-      function login() {
-          let username = $("#username").val();
-          let password = $("#password").val();
-
-          $.ajax({
-              url: 'kontroler.php?akcija=login',
-              type: 'POSt',
-              data : {
-                  username: username,
-                  password: password
-              }
-              success: function (podaci) {
-                  $("#poruka").html(podaci);
-              }
-          })
-      }
-  </script>
-
   </body>
 </html>

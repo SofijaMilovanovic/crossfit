@@ -14,7 +14,7 @@ foreach ($wods as $wod){
     <?php
     if(!empty($_SESSION['user'])){
         ?>
-    <a class="btn btn-info" href="unesiVreme.php?id=<?= $wod->getWodID() ?>">Unesi svoje vreme za <?= $wod->getWodName() ?></a>
+    <a class="btn btn-info" href="unesiVreme.php?id=<?= $wod->getWodID() ?>&wodName=<?= $wod->getWodName() ?>">Unesi svoje vreme za <?= $wod->getWodName() ?></a>
         <?php
     }
     ?>

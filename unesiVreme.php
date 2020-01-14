@@ -1,5 +1,9 @@
 <?php
 include "autoload.php";
+
+$wodId = $_GET['id'];
+$wodName = $_GET['wodName'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +70,7 @@ include "autoload.php";
 
     <div class="site-section">
       <div class="container">
-          <h2 class="text-center">Login forma</h2>
+          <h2 class="text-center">Forma za unos najbolje vremena</h2>
           <?php
             if(isset($_GET['greska'])){
                 ?>
@@ -77,13 +81,17 @@ include "autoload.php";
 
           <div class="row">
           <div class="col-md-12">
-              <form method="POST" action="kontroler.php?akcija=login">
-                  <label for="username">Korisnicko ime</label>
-                  <input name="username" type="text" id="username" class="form-control">
-                  <label for="password">Korisnicka lozinka</label>
-                  <input name="password" type="password" id="password" class="form-control">
+              <form method="POST" action="kontroler.php?akcija=unosVremena">
+                  <label>Izabrani WODL <?= $wodName ?></label>
+                  <input type="hidden" value="<?= $wodId ?>" name="wodID">
+                  <input type="hidden" value="<?= $_SESSION['user']->getUserID(); ?>" name="userID">
+                  <br>
+                  <label for="minuti">Broj minuta</label>
+                  <input name="minuti" type="number" id="minuti" class="form-control" value="0">
+                  <label for="sekunde">Broj sekundi</label>
+                  <input name="sekunde" type="number" id="sekunde" class="form-control" min="0" max="59" value="0">
                   <hr>
-                  <input type="submit" class="btn btn-primary btn-lg" value="Uloguj se">
+                  <input type="submit" class="btn btn-primary btn-lg" value="Unesi vreme">
               </form>
           </div>
         </div>

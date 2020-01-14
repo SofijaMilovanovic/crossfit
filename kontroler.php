@@ -30,3 +30,16 @@ if($akcija == 'registracija'){
         header("Location: register.php?greska=Doslo je do greske prilikom registracije.Obratite se administratorima.");
     }
 }
+
+if($akcija == 'unosVremena'){
+    $wodID = strip_tags($_POST['wodID']);
+    $userID = strip_tags($_POST['userID']);
+    $minuti = strip_tags($_POST['minuti']);
+    $sekunde = strip_tags($_POST['sekunde']);
+    $uspesno = $baza->unesiVreme($wodID,$userID,$minuti,$sekunde);
+    if($uspesno){
+        header("Location: rezultatit.php");
+    }else{
+        header("Location: unesiVreme.php?greska=Doslo je do greske prilikom unosa vremena.Obratite se administratorima.");
+    }
+}
