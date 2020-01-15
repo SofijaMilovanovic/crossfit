@@ -82,7 +82,7 @@ $wodName = $_GET['wodName'];
           <div class="row">
           <div class="col-md-12">
               <form method="POST" action="kontroler.php?akcija=unosVremena">
-                  <label>Izabrani WODL <?= $wodName ?></label>
+                  <label>Izabrani WOD: <?= $wodName ?></label>
                   <input type="hidden" value="<?= $wodId ?>" name="wodID">
                   <input type="hidden" value="<?= $_SESSION['user']->getUserID(); ?>" name="userID">
                   <br>

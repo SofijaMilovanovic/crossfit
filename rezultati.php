@@ -138,7 +138,6 @@ include "autoload.php";
       $.ajax({
           url: 'vebServis/wods',
           success: function (treninzi) {
-              console.log(treninzi);
               let nalepi = '';
               $.each(treninzi,function (i,wod) {
                   nalepi += '<option value="'+ wod.id + '">' + wod.wod_name + '</option>';

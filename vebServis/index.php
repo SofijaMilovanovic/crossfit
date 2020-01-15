@@ -55,7 +55,7 @@ Flight::route('PUT /promeniUAdmina/@id', function($id)
     }
     else
     {
-        echo (json_encode($sql));
+        echo (json_encode("Doslo je do greske, nismo uspeli da promenimo ulogu korisnika."));
     }
 });
 
