@@ -26,7 +26,8 @@ include "autoload.php";
     <link rel="stylesheet" href="css/aos.css">
 
     <link rel="stylesheet" href="css/style.css">
-    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/ju/dt-1.10.20/datatables.min.css"/>
+
   </head>
   <body style="background-image: url('images/bg.jpg');">
   
@@ -66,36 +67,35 @@ include "autoload.php";
 
     <div class="site-section">
       <div class="container">
-          <h2 class="text-center">Registraciona forma</h2>
+          <h2 class="text-center">Administracija</h2>
+          <h3 class="text-center" id="poruka">
           <?php
             if(isset($_GET['greska'])){
-                ?>
-                <p class="text-center" id="poruka"><?= $_GET['greska'] ?></p>
-          <?php
+                echo $_GET['greska'];
             }
           ?>
+          </h3>
+          <div class="row">
+          <div class="col-md-12" id="sviRezultati">
+
+          </div>
+        </div>
 
           <div class="row">
-          <div class="col-md-12">
-              <form method="POST" action="kontroler.php?akcija=registracija">
-                  <label for="ime">Ime</label>
-                  <input name="ime" type="text" id="ime" class="form-control">
-                  <label for="prezime">Prezime</label>
-                  <input name="prezime" type="text" id="prezime" class="form-control">
-                  <label for="username">Korisnicko ime</label>
-                  <input name="username" type="text" id="username" class="form-control">
-                  <label for="password">Korisnicka lozinka</label>
-                  <input name="password" type="password" id="password" class="form-control">
-                  <hr>
-                  <input type="submit" class="btn btn-primary btn-lg" value="Registruj se">
-              </form>
-          </div>
-              <div class="col-md-12">
-                  <label for="passwordGenerator">Imate problema sa smisljanjem lozinke. Dozvolite da vam pomognemo</label>
-                  <button class="btn-primary btn-lg btn" id="passwordGenerator" onclick="izmisliLozinku()">Feeling lucky</button>
-                    <h3 id="izmisljenaLozinka"></h3>
+              <div class="col-md-9" >
+                  <label for="user">Izaberi korinika</label>
+                  <select class="form-control" id="user">
+
+                  </select>
               </div>
-        </div>
+              <div class="col-md-3" >
+                  <label for="dugme">Promeni</label>
+
+                  <button id="promeni" class="btn-primary" onclick="promeniRolu()">Promeni rolu korisnika</button>
+              </div>
+          </div>
+
+          <div id="columnchart_values" style="width: 900px; height: 300px;"></div>
       </div>
     </div>
 
@@ -134,17 +134,94 @@ include "autoload.php";
   <script src="js/jquery.magnific-popup.min.js"></script>
   <script src="js/bootstrap-datepicker.min.js"></script>
   <script src="js/aos.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/ju/dt-1.10.20/datatables.min.js"></script>
 
   <script src="js/main.js"></script>
   <script>
-      function izmisliLozinku() {
+      $.ajax({
+          url: 'vebServis/users',
+          success: function (users) {
+              let nalepi = '';
+              $.each(users,function (i,user) {
+                  nalepi += '<option value="'+ user.user_id + '">' + user.first_name + ' ' + user.last_name + '</option>';
+              });
+              $("#user").html(nalepi);
+          }
+      });
+      function vratiRezultate(){
           $.ajax({
-              url: 'lozinka.php',
-              success: function (lozinka) {
-                  let output = 'Probajte sa: '+lozinka;
-                  $("#izmisljenaLozinka").html(output);
+              url: 'kontroler.php?akcija=svi_rezultati',
+              success: function (podaci) {
+                  $("#sviRezultati").html(podaci);
+                  $('#rez').DataTable();
               }
           });
+      }
+     vratiRezultate();
+
+      function obrisiRezultat(id) {
+          $.ajax({
+              url: 'kontroler.php?akcija=obrisi&id='+id,
+              success: function (poruka) {
+                  $("#poruka").html(poruka);
+                  vratiRezultate();
+              }
+          });
+      }
+      
+      function promeniRolu() {
+          let userID = $("#user").val();
+          $.ajax({
+              url: 'vebServis/promeniUAdmina/'+userID,
+              type: 'PUT',
+              success: function (poruka) {
+
+                  $("#poruka").html(poruka);
+              }
+          });
+      }
+  </script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+      google.charts.load("current", {packages:['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+          let niz = [];
+          niz.push(["WOD", "Broj unetih vremena", { role: "style" } ]);
+
+          $.ajax({
+              url: 'kontroler.php?akcija=grafik',
+              success: function (podaci) {
+                  let pod = JSON.parse(podaci);
+
+                  $.each(pod,function (i,p) {
+                      let clanNiza = [p.wod_name,parseInt(p.brojVremena),"gold"];
+                      niz.push(clanNiza);
+                  });
+                  var data = google.visualization.arrayToDataTable(niz);
+
+                  var view = new google.visualization.DataView(data);
+                  view.setColumns([0, 1,
+                      { calc: "stringify",
+                          sourceColumn: 1,
+                          type: "string",
+                          role: "annotation" },
+                      2]);
+
+                  var options = {
+                      title: "Broj unosa po wod-u",
+                      width: 600,
+                      height: 400,
+                      bar: {groupWidth: "95%"},
+                      legend: { position: "none" },
+                  };
+                  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+                  chart.draw(view, options);
+              }
+          });
+
+
       }
   </script>
   </body>

@@ -43,22 +43,19 @@ Flight::route('GET /users', function(){
     echo json_encode($niz);
 });
 
-Flight::route('POST /promeniUAdmina', function()
+Flight::route('PUT /promeniUAdmina/@id', function($id)
 {
     header("Content-Type: application/json; charset=utf-8");
     $konekcija = new Mysqli('localhost','root','','crossfit');
     $konekcija->set_charset('utf8');
-    $podaci = file_get_contents('php://input');
-    $niz = json_decode($podaci,true);
-    $userId = $niz['userID'];
-    $sql = "UPDATE user set admin='Admin' WHERE user_id = ".$userId;
+    $sql = "UPDATE user set admin='Admin' WHERE user_id = " . $id;
     if($konekcija->query($sql))
     {
         echo (json_encode("Uspesno promenjena administratorska rola"));
     }
     else
     {
-        echo (json_encode("Neuspesno. Doslo je do greske."));
+        echo (json_encode($sql));
     }
 });
 

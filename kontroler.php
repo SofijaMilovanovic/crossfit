@@ -43,3 +43,21 @@ if($akcija == 'unosVremena'){
         header("Location: unesiVreme.php?greska=Doslo je do greske prilikom unosa vremena.Obratite se administratorima.");
     }
 }
+
+if($akcija == 'svi_rezultati'){
+    include 'delovi/svi_rezultati.php';
+}
+if($akcija == 'obrisi'){
+    $id = strip_tags($_GET['id']);
+
+    $uspesno = $baza->obrisiRezultat($id);
+    if($uspesno){
+        echo "Uspesno obrisan rezultat";
+    }else{
+        echo "Neuspesno obrisan rezultat";
+    }
+}
+
+if($akcija == 'grafik'){
+    echo json_encode($baza->vratiPodatkeZaGrafik());
+}

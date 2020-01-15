@@ -77,4 +77,25 @@ class Baza
 
         return $rezultati;
     }
+
+    public function obrisiRezultat($id)
+    {
+        $id= $this->konekcija->real_escape_string($id);
+
+        $sql = "DELETE FROM user_times WHERE user_time_id =".$id;
+        return $this->konekcija->query($sql);
+    }
+
+    public function vratiPodatkeZaGrafik()
+    {
+        $sql = "SELECT w.wod_name, count(ut.user_time_id) as brojVremena FROM user_times ut join wod w on ut.wod_id = w.id GROUP BY ut.wod_id";
+        $rezultati = [];
+        $resultSet = $this->konekcija->query($sql);
+
+        while ($red = $resultSet->fetch_object()) {
+            $rezultati[] = $red;
+        }
+
+        return $rezultati;
+    }
 }
