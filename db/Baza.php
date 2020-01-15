@@ -64,4 +64,17 @@ class Baza
         $sql = "INSERT INTO user_times VALUES (null,{$userID},{$wodID},{$minuti},{$sekunde})";
         return $this->konekcija->query($sql);
     }
+
+    public function vratiSveRezulate()
+    {
+        $sql = "SELECT * FROM user_times ut join wod w on ut.wod_id = w.id join user u on ut.user_id = u.user_id ORDER BY minutes asc,seconds asc";
+        $rezultati = [];
+        $resultSet = $this->konekcija->query($sql);
+
+        while ($red = $resultSet->fetch_object()) {
+            $rezultati[] = $red;
+        }
+
+        return $rezultati;
+    }
 }

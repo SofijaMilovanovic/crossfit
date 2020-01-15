@@ -15,12 +15,12 @@ Flight::route('GET /wods', function(){
     echo json_encode($niz);
 });
 
-Flight::route('GET /rezultati/@id', function($id){
+Flight::route('GET /rezultati/@sort/@id', function($sort,$id){
     header("Content-Type: application/json; charset=utf-8");
     $konekcija = new Mysqli('localhost','root','','crossfit');
     $konekcija->set_charset('utf8');
 
-    $sql = "SELECT * FROM user_times WHERE wod_id = ".$id;
+    $sql = "SELECT * FROM user_times ut join wod w on ut.wod_id = w.id join user u on ut.user_id = u.user_id WHERE ut.wod_id = ".$id ." ORDER by minutes ".$sort.", seconds ".$sort;
     $resultSet = $konekcija->query($sql);
     $niz = [];
     while ($red = $resultSet->fetch_object()){

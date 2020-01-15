@@ -38,7 +38,7 @@ if($akcija == 'unosVremena'){
     $sekunde = strip_tags($_POST['sekunde']);
     $uspesno = $baza->unesiVreme($wodID,$userID,$minuti,$sekunde);
     if($uspesno){
-        header("Location: rezultatit.php");
+        header("Location: rezultati.php");
     }else{
         header("Location: unesiVreme.php?greska=Doslo je do greske prilikom unosa vremena.Obratite se administratorima.");
     }
