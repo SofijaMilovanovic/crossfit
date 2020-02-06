@@ -71,8 +71,8 @@ include "autoload.php";
             <p class="mb-5"><img src="images/trening.jpg" alt="Image" class="img-fluid"></p>
           </div>
           <div class="col-lg-5 ml-auto">
-            <h2 class="site-section-heading mb-3">O Klubu</h2>
-            <p>Nalazimo se na lokaciji Vojvode Stepe 344 na Voždovcu, gde su svi treneri licencirani od strane CrossFit-a, licencama CF L1 Trainer, sa dugogodišnjim iskustvom u radu sa klijentima, na 300m2 prijatnog prostora i pozitivne atmosfere, vode grupu pazeći na tehniku izvodjenja pokreta, bodreći i motivišući sve članove.</p>
+            <h2 class="site-section-heading mb-3">O nama</h2>
+            <p>Nas klub se nalazi na lokaciji Vojvode Stepe 344 na Voždovcu. Sala za treninge je povrsine 300m2 i sadrzi sve potrebne sprave za treniranje. Treninge vode treneri sa licencama CF L1 Trainer od strane CrossFit-a.</p>
             <p><a href="wods.php" class="btn btn-outline-primary py-2 px-4">Pogledaj neke od nasih treninga</a></p>
           </div>
         </div>
