@@ -68,7 +68,7 @@ include "autoload.php";
       <div class="container">
         <div class="row">
           <div class="col-lg-6">
-            <p class="mb-5"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></p>
+            <p class="mb-5"><img src="images/trening.jpg" alt="Image" class="img-fluid"></p>
           </div>
           <div class="col-lg-5 ml-auto">
             <h2 class="site-section-heading mb-3">O Klubu</h2>
