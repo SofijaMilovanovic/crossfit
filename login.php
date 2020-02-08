@@ -57,8 +57,8 @@ include "autoload.php";
       <div class="site-blocks-cover inner-page" style="background-image: url(images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
           <div class="row align-items-center justify-content-center">
             <div class="col-md-7 text-center" data-aos="fade">
-              <h1>Takmici se sa samim sobom</h1>
-              <span class="caption d-block text-white">Pogledaj nase treninge i postavi svoje vreme</span>
+              <h1>Takmici se uvek sam sa sobom</h1>
+              <span class="caption d-block text-white">Obavezno pogledaj nase treninge i postavi svoje vreme</span>
             </div>
           </div>
       </div>
